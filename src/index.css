@@ -4,8 +4,8 @@
   --bg: #f0f6f8;
   --border: #0c1016;
   --code-bg: #f0f6f8;
-  --accent: #0c1016;
-  --accent-bg: #f0f6f8;
+  --accent: #a4acae;
+  --accent-bg: #a4acae5f;
   --accent-border: #0c1016;
   --shadow: #0c1016 0 10px 15px -3px, #0c1016 0 4px 6px -2px;
 
@@ -28,6 +28,15 @@
   }
 }
 
+@font-face {
+  font-family: "BodyFont";
+  src: url("src/fonts/MinecraftRegular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "HeaderFont";
+  src: url("src/fonts/MinecraftBold.otf") format("opentype");
+}
 /*
 @media (prefers-color-scheme: dark) {
   :root {

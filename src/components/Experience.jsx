@@ -1,5 +1,8 @@
 import { useState } from "react";
 import resume from "../assets/Shreya_Mookherjee_Resume.pdf";
+import { useIsVisible } from "../hooks/useIsVisible";
+import { motion } from "framer-motion";
+import ScrambleText from "./ScrambleText";
 
 const EXPERIENCES = [
   {
@@ -22,6 +25,7 @@ const EXPERIENCES = [
 
 export default function Experience() {
   const [numClicks, setNumClicks] = useState(0);
+  const { ref, opacity } = useIsVisible();
 
   function clickFwd() {
     setNumClicks((numClicks + 1) % EXPERIENCES.length);
@@ -32,27 +36,51 @@ export default function Experience() {
   }
 
   return (
-    <div className="flex flex-col gap-4 pb-20 items-center justify-center">
-      <h2>experience</h2>
+    <motion.div
+      ref={ref}
+      style={{ opacity }}
+      className="flex flex-col gap-4 pb-20 items-center justify-center"
+    >
+      <h2>
+        <ScrambleText title={"EXPERIENCE"} />
+      </h2>
       <p>this is a line about my experience</p>
-      <div className="experience flex px-4 py-10 border rounded-lg">
-        <button className="self-center px-3 py-1 text-lg" onClick={clickBwd}>
+      <motion.div
+        whileHover={{ boxShadow: "0px 0px 20px var(--accent-bg)" }}
+        className="experience flex px-4 py-10 rounded-lg"
+      >
+        <motion.button
+          whileHover={{ scale: 1.1, color: "var(--accent)" }}
+          className="self-center px-3 py-1 text-lg"
+          onClick={clickBwd}
+        >
           ◀
-        </button>
+        </motion.button>
         <div className="self-center flex-1 max-w-160 px-7">
-          <h3>{EXPERIENCES[numClicks].title}</h3>
+          <motion.h3
+            whileHover={{ scale: 1.05, originX: 0, color: "var(--accent)" }}
+          >
+            {EXPERIENCES[numClicks].title}
+          </motion.h3>
           <p className="pt-4"> {EXPERIENCES[numClicks].description}</p>
         </div>
-        <button className="self-center text-lg" onClick={clickFwd}>
+        <motion.button
+          whileHover={{ scale: 1.1, color: "var(--accent)" }}
+          className="self-center text-lg"
+          onClick={clickFwd}
+        >
           ▶
-        </button>
-      </div>
-      <div className="self-center border rounded-3xl px-5 py-3 mt-5">
+        </motion.button>
+      </motion.div>
+      <motion.div
+        whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px var(--accent-bg)" }}
+        className="self-center border rounded-3xl px-5 py-3 mt-5"
+      >
         <a href={resume} target="_blank">
           {" "}
           resume{" "}
         </a>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

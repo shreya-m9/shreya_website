@@ -2,7 +2,3 @@
   background: var(--bg);
   z-index: 10;
 }
-.experience {
-  background: var(--accent-bg);
-  color: var(--accent);
-}

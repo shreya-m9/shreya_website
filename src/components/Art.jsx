@@ -2,6 +2,9 @@ import { useState } from "react";
 import temp1 from "../assets/headshot-2-temp.jpeg";
 import temp2 from "../assets/headshot-temp.jpeg";
 import ArtContainer from "./ArtContainer.jsx";
+import { motion } from "framer-motion";
+import { useIsVisible } from "../hooks/useIsVisible.js";
+import ScrambleText from "./ScrambleText.jsx";
 
 const ARTWORK = {
   1: {
@@ -20,10 +23,13 @@ export default function Art() {
   function handleSelect(key) {
     setFlipped(flipped === key ? null : key);
   }
+  const { ref, opacity } = useIsVisible();
 
   return (
-    <div>
-      <h2 className="pb-2">art</h2>
+    <motion.div ref={ref} style={{ opacity }}>
+      <h2 className="pb-2">
+        <ScrambleText title={"ART"} />
+      </h2>
       <p className="pb-7"> here is a line about this section </p>
       <div className="grid grid-cols-3 gap-4">
         {Object.entries(ARTWORK).map(([key, value]) => (
@@ -37,6 +43,6 @@ export default function Art() {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
