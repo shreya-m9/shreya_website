@@ -14,7 +14,7 @@ function App() {
       <div className="sticky top-0 z-10">
         <NavBar />
       </div>
-      <div id="home">
+      <div id="home" className="overflow-hidden">
         <Home />
       </div>
       <div>

@@ -1,21 +1,51 @@
 import { useIsVisible } from "../hooks/useIsVisible";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
+import { Cascade } from "./BackgroundCascade";
+import ScrollScramble from "./ScrollScramble";
+import { useRef } from "react";
+
 export default function Home() {
   const { ref, opacity } = useIsVisible();
+  const scrollRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ["start end", "end start"],
+  });
 
   return (
-    <div ref={ref} className="flex pl-10 pt-90 justify-end h-screen shrink-0">
-      <motion.div
-        style={{ opacity }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 1.5 }}
+    <div className="relative min-h-screen">
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <Cascade />
+      </div>
+      <div
+        ref={ref}
+        className="relative flex pl-10 pt-90 justify-end h-screen shrink-0"
       >
-        <div className="flex items-center gap-10">
-          <h1 className="pb-5">shreya</h1>
-        </div>
-        <h1 className="pl-100 pb-10"> mookherjee</h1>
-      </motion.div>
+        <motion.div
+          style={{ opacity }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1.5 }}
+        >
+          <div className="flex items-center gap-10">
+            <h1 className="pl-50 pb-12">
+              <ScrollScramble
+                title={"SHREYA"}
+                progress={scrollYProgress}
+                length={15}
+              />
+            </h1>
+          </div>
+          <h1 className="pl-100 pb-5">
+            <ScrollScramble
+              title={"MOOKHERJEE"}
+              progress={scrollYProgress}
+              length={15}
+            />
+          </h1>
+        </motion.div>
+      </div>
+      <div ref={scrollRef} className="h-[10vh]" />
     </div>
   );
 }
